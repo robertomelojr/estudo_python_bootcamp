@@ -263,3 +263,200 @@ except ValueError as e:
     exit()
 
 # Bônus: Quantos bugs e riscos você consegue identificar nesse programa?
+
+### Exercício 1: Verificação de Qualidade de Dados
+# Você está analisando um conjunto de dados de vendas e precisa garantir 
+# que todos os registros tenham valores positivos para `quantidade` e `preço`. 
+# Escreva um programa que verifique esses campos e imprima "Dados válidos" se ambos 
+# forem positivos ou "Dados inválidos" caso contrário.
+
+
+preco = float(10)
+quantidade = float(24)
+
+if (preco < 0) or (quantidade < 0):
+    print('Preço ou quantidade são negativos! Verificar a qualidade dos dados.')
+else:
+    print("Dados válidos.")
+
+### Exercício 2: Classificação de Dados de Sensor
+# Imagine que você está trabalhando com dados de sensores IoT. 
+# Os dados incluem medições de temperatura. Você precisa classificar cada leitura 
+# como 'Baixa', 'Normal' ou 'Alta'. Considerando que:
+# Temperatura < 18°C é 'Baixa'
+# Temperatura >= 18°C e <= 26°C é 'Normal'
+# Temperatura > 26°C é 'Alta'
+
+try: 
+    temperatura_em_celsius = float(input("Digite aqui a temperatura em graus celsius: "))
+        
+    if temperatura_em_celsius < 18:
+        print("Baixa")
+    elif temperatura_em_celsius >=18 and temperatura_em_celsius <=26:
+        print("Normal")
+    else: print ("Alta")
+
+except ValueError as erro :
+    print (erro)
+
+
+### Exercício 3: Filtragem de Logs por Severidade
+# Você está analisando logs de uma aplicação e precisa filtrar mensagens 
+# com severidade 'ERROR'. Dado um registro de log em formato de dicionário 
+# como `log = {'timestamp': '2021-06-23 10:00:00', 'level': 'ERROR', 'message': 'Falha na conexão'}`, 
+# escreva um programa que imprima a mensagem se a severidade for 'ERROR'.
+
+lista_de_logs = [{'timestamp': '2021-06-23 12:00:00', 'level': 'FATAL', 'message': 'Falha na rede'},
+                 {'timestamp': '2021-06-23 10:00:00', 'level': 'ERROR', 'message': 'Falha na conexão'},
+                 {'timestamp': '2021-06-23 22:00:00', 'level': 'MEDIUM', 'message': 'Falha no update'},
+                 {'timestamp': '2021-06-23 08:00:00', 'level': 'LOW', 'message': 'Falha no geteway'},
+                 {'timestamp': '2021-06-23 00:20:00', 'level': 'ERROR', 'message': 'Falha na conexão'}]
+
+valores_criterio_fatal = {'FATAL','ERROR'}
+
+for log in lista_de_logs:
+    if log['level'] in valores_criterio_fatal :
+        print(log)
+    else:
+        pass
+
+
+### Exercício 4: Validação de Dados de Entrada
+# Antes de processar os dados de usuários em um sistema de recomendação, 
+# você precisa garantir que cada usuário tenha idade entre 18 e 65 anos e tenha 
+# fornecido um email válido. Escreva um programa que valide essas condições 
+# e imprima "Dados de usuário válidos" ou o erro específico encontrado.
+
+
+users_lista = []  # Lista que armazenará os dicionários
+
+for i in range(3):  # Loop para 3 usuários
+   
+    try:
+        print(f"\nCadastro do usuário {i+1}:")
+        
+        # Validação do nome
+        nome = input("Nome: ").strip()
+        if any(char.isdigit() for char in nome):
+            raise ValueError("O nome não deve conter números.")
+        
+        # Validação da idade
+        idade = int(input("Idade: ").strip())
+        if not (18 <= idade <= 65):
+            raise ValueError("Idade deve estar entre 18 e 65 anos.")
+        
+        # Validação do email 
+        email = input("Email: ").strip()
+        if "@" not in email or "." not in email.split("@")[-1]:
+            raise ValueError("Email inválido.")
+        
+        # Adiciona à lista apenas se todas as validações passarem
+        users_lista.append({
+            "nome": nome,
+            "idade": idade,
+            "email": email
+        })
+        
+    except ValueError as err:
+        print(f"Erro: {err}")
+        print("Por favor, repita os dados deste usuário.\n")
+        continue  # Volta ao início do loop para o mesmo usuário
+
+# Exibe a lista completa
+print("\nUsuários cadastrados:")
+for usuario in users_lista:
+    print(f"Nome: {usuario['nome']}, Idade: {usuario['idade']}, Email: {usuario['email']}")
+
+
+
+### Exercício 5: Detecção de Anomalias em Dados de Transações
+# Você está trabalhando em um sistema de detecção de fraude e precisa identificar 
+# transações suspeitas. Uma transação é considerada suspeita se o valor for superior 
+# a R$ 10.000 ou se ocorrer fora do horário comercial (antes das 9h ou depois das 18h). 
+# Dada uma transação como `transacao = {'valor': 12000, 'hora': 20}`, verifique se ela é suspeita.
+
+lista_de_transacoes = [
+    {'id_transacao': 'A3F5B2C8D1', 'valor': 12000, 'hora': 2},
+    {'id_transacao': '4E7F209C6B', 'valor': 112000, 'hora': 17},
+    {'id_transacao': '1B8D3E5F0A', 'valor': 100, 'hora': 21},
+    {'id_transacao': '9C2D4A7E1F', 'valor': 12020, 'hora': 20},
+    {'id_transacao': '5F0B3D8E2C', 'valor': 1200, 'hora': 22}]
+
+limite_valor = 10000
+horarios = range(9,19)
+
+for transacao in lista_de_transacoes:
+    if transacao['valor'] >limite_valor or (transacao['hora'] not in horarios):
+        print(f"Transação {transacao['id_transacao']} suspeita, verificar")
+    else :
+        pass
+
+### Exercício 6. Contagem de Palavras em Textos
+# Objetivo:** Dado um texto, contar quantas vezes cada palavra única aparece nele.
+texto = "a raposa marrom salta sobre o cachorro preguiçoso"
+palavras = texto.split()
+contagem_palavras = {}
+
+for palavra in palavras:
+    if palavra in contagem_palavras:
+        contagem_palavras[palavra] += 1
+    else:
+        contagem_palavras[palavra] = 1
+
+print(contagem_palavras)
+
+
+frase = "Olá, teste, estes são dados para o teste é uma frase de teste do jornada de dados"
+
+caracteres_especiais = ',.!?:;"(){}[]<>@#$%^&*_~´`=+/-\\|'
+
+frase_limpa = ''.join([char if char not in caracteres_especiais else ' ' for char in frase]).upper()
+
+frase_splitada = frase_limpa.split()
+contagem_palavras = {}
+
+for palavra in frase_splitada:
+    if palavra in contagem_palavras:
+        contagem_palavras[palavra] += 1
+    else:
+        contagem_palavras[palavra] = 1
+
+print(frase_splitada)
+print(contagem_palavras)
+
+
+### Exercício 7. Normalização de Dados
+# Objetivo:** Normalizar uma lista de números para que fiquem na escala de 0 a 1.
+numeros = [123, 222, 330, 4450, 5880]
+minimo = min(numeros)
+maximo = max(numeros)
+normalizados = [(x - minimo) / (maximo - minimo) for x in numeros]
+
+print(normalizados)
+
+### Exercício 8. Filtragem de Dados Faltantes
+# Objetivo:** Dada uma lista de dicionários representando dados de usuários, filtrar aqueles que têm um campo específico faltando
+
+lista_de_users = [
+    {'user': 'Roberto', 'grant_level': 'ADMIN', 'Último acesso em': '2021-06-23 10:00:00'},
+    {'user': 'Julia', 'grant_level': None, 'Último acesso em': None},
+    {'user': 'Carlos', 'grant_level': 'USER', 'Último acesso em': '2023-01-15 14:30:00'},
+    {'user': 'Maria', 'grant_level': None, 'Último acesso em': None},
+    {'user': 'José', 'grant_level': None, 'Último acesso em': None}
+]
+
+users_lista_erros = [] 
+
+for usuario in lista_de_users:
+    if usuario['grant_level'] is None or usuario['Último acesso em'] is None:
+        users_lista_erros.append({
+            "nome": usuario['user'],
+            "problema": "Dados incompletos"
+        })
+        print(f"{usuario['user']} com dados corrompidos, por favor verificar o motivo do Bug!")
+    else:
+        pass  # Usuários válidos são ignorados
+
+print("\nLista completa de usuários com problemas:")
+print(users_lista_erros)
+

@@ -460,3 +460,120 @@ for usuario in lista_de_users:
 print("\nLista completa de usuários com problemas:")
 print(users_lista_erros)
 
+
+### Exercício 9. Extração de Subconjuntos de Dados
+# Objetivo:** Dada uma lista de números, extrair apenas aqueles que são pares.
+
+lista_de_dados : list = []
+
+for x in range (1,17):
+    lista_de_dados.append(x)
+
+lista_de_dados_pares : list = [] 
+
+for dados in lista_de_dados:
+    if dados % 2 == 0 :
+        lista_de_dados_pares.append(dados)
+        
+    else:
+        pass  # Dados não pares são ignorados
+
+print("\nLista completa de dados pares:")
+print(lista_de_dados_pares)
+
+### Exercício 10. Agregação de Dados por Categoria
+# Objetivo:** Dado um conjunto de registros de vendas, calcular o total de vendas por categoria.
+
+vendas : dict = [
+    {"categoria": "eletrônicos", "valor": 1200},
+    {"categoria": "livros", "valor": 200},
+    {"categoria": "eletrônicos", "valor": 800}
+]
+
+total_por_categoria = {}
+for venda in vendas:
+    categoria = venda["categoria"]
+    valor = venda["valor"]
+    if categoria in total_por_categoria:
+        total_por_categoria[categoria] += valor
+    else:
+        total_por_categoria[categoria] = valor
+
+print(total_por_categoria)
+
+### Exercícios com WHILE
+
+### Exercício 11. Leitura de Dados até Flag
+# Ler dados de entrada até que uma palavra-chave específica ("sair") seja fornecida.
+palavra_chave = {'Usuario_1': 'continuar', 'Usuario_2': 'continuar', 'Usuario_3': 'sair','Usuario_4': 'continuar'}
+
+palavras_executadas = {}
+
+for usuario, instrucao in palavra_chave.items():
+    if instrucao != 'sair':
+        palavras_executadas[usuario] = instrucao ## Aqui atribui para a chave usuario no dict palavras_executadas o valor instrucao quando instrucao for != de sair
+    else:
+        break ## Aqui quando for == sair encerra a execução
+
+print(palavras_executadas) 
+
+# COOM WHILE
+itens = list(palavra_chave.items())
+indice = 0
+
+while indice < len(itens):
+    usuario, instrucao = itens[indice]
+    
+    if instrucao.lower() != 'sair':
+        palavras_executadas[usuario] = instrucao
+        indice += 1  # Avança para o próximo usuário
+    else:
+        print(f"Instrução 'sair' encontrada para {usuario}. Encerrando...")
+        break
+
+print("\nUsuários processados:")
+print(palavras_executadas)
+
+### Exercício 12. Validação de Entrada
+# Solicitar ao usuário um número dentro de um intervalo específico até que a entrada seja válida.
+
+numero_inserido : float = float(input("Digite um número entre 1 e 10:"))
+
+while numero_inserido < 1 or  numero_inserido >10:
+    print("Numero fora do intervalo!")
+    numero_inserido : float = float(input("Digite um número entre 1 e 10:"))
+else:
+    print(f'Número válido, o número digitado foi {numero_inserido}')
+
+
+### Exercício 13. Consumo de API Simulado
+# Simular o consumo de uma API paginada, onde cada "página" de dados é processada em loop até que não haja mais páginas.
+
+lista_de_paginas :list = ['Página 1','Página 2','Página 3','Página 4']
+
+indice = 0
+
+while indice < len(lista_de_paginas):
+    
+    print(f"Processando {lista_de_paginas[indice]} de {len(lista_de_paginas)}...")
+    indice += 1
+else:
+    print(f"Ok, {len(lista_de_paginas)} de {len(lista_de_paginas)} páginas processadas.")
+
+
+### Exercício 13. Consumo de API Simulado
+# Simular o consumo de uma API paginada, onde cada "página" de dados é processada em loop até que não haja mais páginas.
+max_conexoes  = 5
+
+indice = 0
+
+while indice < max_conexoes:
+    indice += 1
+    print(f"Tentativa {indice} de {max_conexoes} possíveis...")
+    if True: ## Considerando que deu certo
+        print("Conexão bem-sucedida!")
+        break
+else:
+    print(f"{indice} de {max_conexoes}  realizadas, tentativas expiradas!")
+
+
